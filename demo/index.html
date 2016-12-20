@@ -4,4 +4,10 @@
   
 <link rel="import" href="../t-pagination.html">
 
- <t-pagination id="paginator" page-count="0" page-size="" ></t-pagination>
+ <t-pagination id="paginator" total-records="25" ></t-pagination>
+
+ <script type="text/javascript">
+ 	document.querySelector("#paginator").addEventListener("t-paginated", function(e){
+ 		console.log('Paging Info - ', e.detail);
+ 	})
+ </script>

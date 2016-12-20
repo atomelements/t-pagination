@@ -28,6 +28,7 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
     "iron-icons": "PolymerElements/iron-icons#^1.0.3",
     "t-button": "atomelements/t-button#^1.0.0",
+    "t-dropdown": "atomelements/t-dropdown#^2.0.0",
     "polymer": "Polymer/polymer#^1.0.0"
   },
   "devDependencies": {

@@ -84,7 +84,7 @@ Polymer({
 
         _currentPageEnd: {
             type: Number,
-            computed: '_calculateCurrentPageEnd(pageNumber, pageSize)'
+            computed: '_calculateCurrentPageEnd(pageNumber, pageSize, totalRecords)'
         },
 
 
@@ -138,7 +138,7 @@ Polymer({
         return ((pageNumber - 1) * pageSize) + 1;
     },
 
-    _calculateCurrentPageEnd: function(pageNumber, pageSize) {
+    _calculateCurrentPageEnd: function(pageNumber, pageSize, totalRecords) {
         if (Math.ceil(this.totalRecords / this.pageSize) == pageNumber) {
             return this.totalRecords;
         } else {

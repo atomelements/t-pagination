@@ -98,10 +98,13 @@ Polymer({
 
 
     _handleExtremities: function() {
-        this.style.display = 'block';
+         this.$.next.disabled = true;
+        this.$.prev.disabled = true;
 
         if (this.pageNumber == 1) {
-            this.$.next.disabled = false;
+            if (Math.ceil(this.totalRecords / this.pageSize) > 1){
+                this.$.next.disabled = false;
+            }
             this.$.prev.disabled = true;
         } else if (this.pageNumber == Math.ceil(this.totalRecords / this.pageSize)) {
             this.$.next.disabled = true;

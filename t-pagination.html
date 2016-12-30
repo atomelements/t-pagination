@@ -1,28 +1,37 @@
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html" />
-<link rel="import" href="../iron-icons/image-icons.html" />
-<link rel="import" href="../iron-icons/av-icons.html" />
+
 <link rel="import" href="../t-button/t-button.html" />
 <link rel="import" href="../t-dropdown/t-dropdown.html" />
 <dom-module id="t-pagination">
-    <link rel="import" type="css" href="t-pagination.css" />
     <template>
-        <style include="iron-flex"></style>
-        <div class="pagination" hidden$="{{noPagination}}">        	
-            <span style="float:right;">             
-							<ul>
-								<li id="prev" >
-									<t-button only-icon class="min"  ico="image:navigate-before"  on-click="_onPrevPageClick"></t-button >
-								</li>
+        <style include="iron-flex">
+        :host{
+            display: block;
+            font-family: var(--primary-font-family,'Open sans');
+            font-size: var(--pagination-font-size,14px);
+            /*width: var(--pagination-width,360px);*/
+        }
+        t-dropdown{    
+            width: 50px;
+            min-width: 50px;
+            margin: 0 5px;
+        }
+        .pagination > *{
+          -ms-flex-align: end;
+          -webkit-align-items: flex-end;
+          align-items: flex-end;
+        }
+        </style>
+        <div class="pagination layout horizontal center" hidden$="{{noPagination}}">
+            <span>Rows per page: </span>
+            <t-dropdown label=" "  no-label-float dropdown-array='["10","20","30"]' selected-item="{{pageSize}}">
+            </t-dropdown>
+            <span>[[_currentPageStart]]-[[_currentPageEnd]] of [[totalRecords]]</span>
+            <t-button id="prev" only-icon class="min"  ico="chevron-left"  on-click="_onPrevPageClick"></t-button >
 
-								<li id="next">
-									<t-button only-icon class="min"  ico="image:navigate-next" on-click="_onNextPageClick" ></t-button>
-								</li>
-							</ul>
-						</span>
-						<span style="float:right;">[[_currentPageStart]]-[[_currentPageEnd]] of [[totalRecords]]</span>
-                        <span style="float:right;">Rows per page<t-dropdown label="Page Size"  dropdown-array='["10", "20", "30"]' selected-item="{{pageSize}}">
-          </t-dropdown></span>
+            <t-button id="next" only-icon class="min"  ico="chevron-right" on-click="_onNextPageClick" ></t-button>
+                    
         </div>
     </template>
 </dom-module>
@@ -33,7 +42,7 @@ Polymer({
 
     properties: {
 
-    		
+
 
         /**
          * The current page number
@@ -95,14 +104,12 @@ Polymer({
             this._handleExtremities();
         }
     },
-
-
     _handleExtremities: function() {
-         this.$.next.disabled = true;
+        this.$.next.disabled = true;
         this.$.prev.disabled = true;
 
         if (this.pageNumber == 1) {
-            if (Math.ceil(this.totalRecords / this.pageSize) > 1){
+            if (Math.ceil(this.totalRecords / this.pageSize) > 1) {
                 this.$.next.disabled = false;
             }
             this.$.prev.disabled = true;
@@ -120,7 +127,7 @@ Polymer({
     },
 
     _pageSizeChanged: function(e) {
-        if(e){
+        if (e) {
             //reset page to 1 when ever page size changes
             this.pageNumber = 1;
             //update prev/next handles
@@ -130,8 +137,8 @@ Polymer({
         }
     },
 
-    _checkPageSizeList:function() {
-        if(this.totalRecords && this.pageSizeList && this.pageSizeList.count){
+    _checkPageSizeList: function() {
+        if (this.totalRecords && this.pageSizeList && this.pageSizeList.count) {
             //TODO: Add logic to programatically update page size list as per total records
         }
     },
